@@ -95,4 +95,24 @@ public class DisponibilidadeRecursoService {
                 .map(DisponibilidadeRecursoResponse::deEntidade)
                 .toList();
     }
+
+    @Transactional
+    public void excluir(Long etapaId, Long disponibilidadeId) {
+
+        DisponibilidadeRecurso disponibilidade =
+                disponibilidadeRepository.findById(disponibilidadeId)
+                        .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Disponibilidade de recurso não encontrada."
+                        ));
+
+        if (!disponibilidade.getEtapa().getId().equals(etapaId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Disponibilidade não encontrada nesta etapa."
+            );
+        }
+
+        disponibilidadeRepository.delete(disponibilidade);
+    }
 }

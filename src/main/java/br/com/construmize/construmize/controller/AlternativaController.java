@@ -35,4 +35,13 @@ public class AlternativaController {
     public List<AlternativaResponse> listar(@PathVariable Long servicoId) {
         return alternativaService.listarPorServico(servicoId);
     }
+
+    @DeleteMapping("/{alternativaId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(
+            @PathVariable Long servicoId,
+            @PathVariable Long alternativaId
+    ) {
+        alternativaService.excluir(servicoId, alternativaId);
+    }
 }

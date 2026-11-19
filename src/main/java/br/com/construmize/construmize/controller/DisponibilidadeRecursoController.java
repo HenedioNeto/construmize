@@ -39,4 +39,13 @@ public class DisponibilidadeRecursoController {
     ) {
         return disponibilidadeService.listarPorEtapa(etapaId);
     }
+
+    @DeleteMapping("/{disponibilidadeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(
+            @PathVariable Long etapaId,
+            @PathVariable Long disponibilidadeId
+    ) {
+        disponibilidadeService.excluir(etapaId, disponibilidadeId);
+    }
 }

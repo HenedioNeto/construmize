@@ -32,4 +32,10 @@ public class ObraController {
     public List<ObraResponse> listarTodas() {
         return obraService.listarTodas();
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable Long id) {
+        obraService.excluir(id);
+    }
 }

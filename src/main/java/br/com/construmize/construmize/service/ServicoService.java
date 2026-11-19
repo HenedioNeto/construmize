@@ -105,4 +105,23 @@ public class ServicoService {
                 .toList();
     }
 
+    @Transactional
+    public void excluir(Long etapaId, Long servicoId) {
+
+        Servico servico = servicoRepository.findById(servicoId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Serviço não encontrado"
+                ));
+
+        if (!servico.getEtapa().getId().equals(etapaId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Serviço não encontrado nesta etapa"
+            );
+        }
+
+        servicoRepository.delete(servico);
+    }
+
 }

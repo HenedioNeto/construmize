@@ -36,4 +36,12 @@ public class ObraService {
                 .map(ObraResponse::deEntidade)
                 .toList();
     }
+
+    public void excluir(Long id) {
+
+        Obra obra = obraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Obra não encontrada"));
+
+        obraRepository.delete(obra);
+    }
 }

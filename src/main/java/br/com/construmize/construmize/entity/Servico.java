@@ -1,8 +1,10 @@
-
 package br.com.construmize.construmize.entity;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "servicos")
@@ -24,6 +26,13 @@ public class Servico {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "etapa_id", nullable = false)
     private Etapa etapa;
+
+    @OneToMany(
+            mappedBy = "servico",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<Alternativa> alternativas = new ArrayList<>();
 
     public Servico() {
     }

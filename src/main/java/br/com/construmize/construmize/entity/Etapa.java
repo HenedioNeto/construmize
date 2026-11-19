@@ -1,7 +1,9 @@
-
 package br.com.construmize.construmize.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "etapas")
@@ -20,6 +22,20 @@ public class Etapa {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "obra_id", nullable = false)
     private Obra obra;
+
+    @OneToMany(
+            mappedBy = "etapa",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<Servico> servicos = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "etapa",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<DisponibilidadeRecurso> disponibilidades = new ArrayList<>();
 
     public Etapa() {
     }

@@ -67,4 +67,23 @@ public class AlternativaService {
                 .map(AlternativaResponse::deEntidade)
                 .toList();
     }
+
+    @Transactional
+    public void excluir(Long servicoId, Long alternativaId) {
+
+        Alternativa alternativa = alternativaRepository.findById(alternativaId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Alternativa não encontrada."
+                ));
+
+        if (!alternativa.getServico().getId().equals(servicoId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Alternativa não encontrada neste serviço."
+            );
+        }
+
+        alternativaRepository.delete(alternativa);
+    }
 }

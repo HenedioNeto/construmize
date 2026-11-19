@@ -8,6 +8,8 @@ import br.com.construmize.construmize.repository.RecursoRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -40,5 +42,17 @@ public class RecursoService {
                 .stream()
                 .map(RecursoResponse::deEntidade)
                 .toList();
+    }
+
+    @Transactional
+    public void excluir(Long recursoId) {
+
+        Recurso recurso = recursoRepository.findById(recursoId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Recurso não encontrado."
+                ));
+
+        recursoRepository.delete(recurso);
     }
 }

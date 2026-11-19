@@ -39,4 +39,13 @@ public class ConsumoRecursoController {
     ) {
         return consumoService.listarPorAlternativa(alternativaId);
     }
+
+    @DeleteMapping("/{consumoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(
+            @PathVariable Long alternativaId,
+            @PathVariable Long consumoId
+    ) {
+        consumoService.excluir(alternativaId, consumoId);
+    }
 }

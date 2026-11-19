@@ -60,4 +60,22 @@ public class EtapaService {
                 .map(EtapaResponse::deEntidade)
                 .toList();
     }
+
+    public void excluir(Long obraId, Long etapaId) {
+
+        Etapa etapa = etapaRepository.findById(etapaId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Etapa não encontrada"
+                ));
+
+        if (!etapa.getObra().getId().equals(obraId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Etapa não encontrada nesta obra"
+            );
+        }
+
+        etapaRepository.delete(etapa);
+    }
 }

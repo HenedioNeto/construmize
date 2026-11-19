@@ -1,7 +1,9 @@
-
 package br.com.construmize.construmize.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "recursos")
@@ -16,6 +18,20 @@ public class Recurso {
 
     @Column(name = "unidade_medida", nullable = false, length = 30)
     private String unidadeMedida;
+
+    @OneToMany(
+            mappedBy = "recurso",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<ConsumoRecurso> consumos = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "recurso",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<DisponibilidadeRecurso> disponibilidades = new ArrayList<>();
 
     public Recurso() {
     }

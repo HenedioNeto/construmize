@@ -49,4 +49,13 @@ public class ServicoController {
         return servicoService.criarEmLote(etapaId, requisicoes);
     }
 
+    @DeleteMapping("/{servicoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(
+            @PathVariable Long etapaId,
+            @PathVariable Long servicoId
+    ) {
+        servicoService.excluir(etapaId, servicoId);
+    }
+
 }

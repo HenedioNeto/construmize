@@ -1,8 +1,10 @@
-
 package br.com.construmize.construmize.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "obras")
@@ -20,6 +22,13 @@ public class Obra {
 
     @Column(nullable = false)
     private LocalDateTime dataCriacao;
+
+    @OneToMany(
+            mappedBy = "obra",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<Etapa> etapas = new ArrayList<>();
 
     @PrePersist
     protected void aoCriar() {

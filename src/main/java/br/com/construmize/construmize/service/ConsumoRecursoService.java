@@ -96,4 +96,23 @@ public class ConsumoRecursoService {
                 .map(ConsumoRecursoResponse::deEntidade)
                 .toList();
     }
+
+    @Transactional
+    public void excluir(Long alternativaId, Long consumoId) {
+
+        ConsumoRecurso consumo = consumoRepository.findById(consumoId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Consumo de recurso não encontrado."
+                ));
+
+        if (!consumo.getAlternativa().getId().equals(alternativaId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Consumo não encontrado nesta alternativa."
+            );
+        }
+
+        consumoRepository.delete(consumo);
+    }
 }

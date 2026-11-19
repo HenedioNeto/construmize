@@ -35,4 +35,10 @@ public class EtapaController {
     ) {
         return etapaService.listarPorObra(obraId);
     }
+
+    @DeleteMapping("/{etapaId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable Long obraId, @PathVariable Long etapaId) {
+        etapaService.excluir(obraId, etapaId);
+    }
 }

@@ -34,4 +34,10 @@ public class RecursoController {
     public List<RecursoResponse> listarTodos() {
         return recursoService.listarTodos();
     }
+
+    @DeleteMapping("/{recursoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable Long recursoId) {
+        recursoService.excluir(recursoId);
+    }
 }
